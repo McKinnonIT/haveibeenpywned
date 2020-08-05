@@ -58,9 +58,6 @@ class Pywned:
             return resp
         return [breach["Name"] for breach in resp]
 
-    def get_all_breached_sites(self):
-        pass
-
 
 if __name__ == "__main__":
     pass
