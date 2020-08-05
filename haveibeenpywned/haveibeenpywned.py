@@ -5,7 +5,7 @@ API_BASE_URL = "https://haveibeenpwned.com/api/v3/"
 
 
 class Pywned:
-    def __init__(self, api_key=None):
+    def __init__(self, api_key):
         self._api_key = api_key
         self.headers = {
             "hibp-api-key": self.api_key,
@@ -45,17 +45,28 @@ class Pywned:
         Args:
             email (string): Account (email address) to search for breaches
             truncate_response (boolean): Return a complete, non-truncated response of
-            breach data
+            breach data (Default is True)
 
         Returns:
-            list: Names of breaches the email (account) has been involved in
+            list: Breaches for the email (account) has been involved in
         """
         resp = self._do_request(
             urljoin("breachedaccount", email),
             params={"truncateResponse": truncate_response},
         )
-        if not truncate_response:
-            return resp
+        return resp
+
+    def get_all_breaches_names_for_account(self, email):
+        """Returns a list of breach names a particular account (email) has been involved
+        in
+
+        Args:
+            email (string): Account (email address) to search for breaches
+
+        Returns:
+            list: Names of breaches for the email (account) has been involved in
+        """
+        resp = self.get_all_breaches_for_account(email)
         return [breach["Name"] for breach in resp]
 
 
