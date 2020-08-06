@@ -1,3 +1,4 @@
+import time
 import requests
 from posixpath import join as urljoin
 
@@ -21,20 +22,25 @@ class Pywned:
         self._api_key = api_key
         self.headers["hibp-api-key"] = api_key
 
-    def _do_request(self, endpoint, params=None):
+    def _do_request(self, endpoint, params=None, rate=1.3):
         """Internal method for building request url and performing HTTP request to the
         HIBP API
 
         Args:
             endpoint (string): API endpoint string (eg. "breachedaccount" or "breach" )
             params (dict): HTTP request parameters to be passed to the HTTP request
+            rate (int): Delay in between each request. Default 1.3s
 
         Returns:
             json: Requests response .json() object
         """
+
         resp = requests.get(
             urljoin(API_BASE_URL, endpoint), headers=self.headers, params=params
         )
+        time.sleep(rate)
+        if resp.status_code == 404:
+            return []
         resp.raise_for_status()
         return resp.json()
 
@@ -44,7 +50,7 @@ class Pywned:
 
         Args:
             email (string): Account (email address) to search for breaches
-            truncate_response (boolean): Return a complete, non-truncated response of
+            truncate_response (bool): Return a complete, non-truncated response of
             breach data (Default is True)
 
         Returns:
