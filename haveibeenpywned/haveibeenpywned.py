@@ -6,30 +6,29 @@ API_BASE_URL = "https://haveibeenpwned.com/api/v3/"
 
 
 class Pywned:
-    def __init__(self, api_key):
+    def __init__(self, api_key, rate_limit=1.3):
+        """HIBP API Setup Class, contains required headers, rate limits, api key etc
+
+        Args:
+            api_key (string): HIBP API Key 
+            rate_limit (float, optional): [description]. Delay in between each request
+                Defaults to 1.3.
+        """
         self._api_key = api_key
         self.headers = {
-            "hibp-api-key": self.api_key,
+            "hibp-api-key": api_key,
             "user-agent": "haveibeenpywned.py",
         }
+        self.rate_limit = rate_limit
 
-    @property
-    def api_key(self):
-        return self._api_key
-
-    @api_key.setter
-    def api_key(self, api_key):
-        self._api_key = api_key
-        self.headers["hibp-api-key"] = api_key
-
-    def _do_request(self, endpoint, params=None, rate=1.3):
+    def _do_request(self, endpoint, params=None):
         """Internal method for building request url and performing HTTP request to the
         HIBP API
 
         Args:
             endpoint (string): API endpoint string (eg. "breachedaccount" or "breach" )
-            params (dict): HTTP request parameters to be passed to the HTTP request
-            rate (int): Delay in between each request. Default 1.3s
+            params (dict, Optional): HTTP request parameters to be passed to the HTTP
+                request
 
         Returns:
             json: Requests response .json() object
@@ -38,7 +37,7 @@ class Pywned:
         resp = requests.get(
             urljoin(API_BASE_URL, endpoint), headers=self.headers, params=params
         )
-        time.sleep(rate)
+        time.sleep(self.rate_limit)
         if resp.status_code == 404:
             return []
         resp.raise_for_status()
