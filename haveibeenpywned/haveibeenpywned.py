@@ -10,7 +10,7 @@ class Pywned:
         """HIBP API Setup Class, contains required headers, rate limits, api key etc
 
         Args:
-            api_key (string): HIBP API Key 
+            api_key (string): HIBP API Key
             rate_limit (float, optional): [description]. Delay in between each request
                 Defaults to 1.3.
         """
