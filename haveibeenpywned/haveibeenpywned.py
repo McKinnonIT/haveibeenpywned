@@ -1,26 +1,27 @@
-import time
+import re
 import requests
+from ratelimit import limits, sleep_and_retry
+from ratelimit.exception import RateLimitException
 from posixpath import join as urljoin
 
 API_BASE_URL = "https://haveibeenpwned.com/api/v3/"
 
 
 class Pywned:
-    def __init__(self, api_key, rate_limit=1.3):
-        """HIBP API Setup Class, contains required headers, rate limits, api key etc
+    def __init__(self, api_key):
+        """HIBP API Setup Class, contains required headers, api key etc
 
         Args:
             api_key (string): HIBP API Key
-            rate_limit (float, optional): [description]. Delay in between each request
-                Defaults to 1.3.
         """
         self._api_key = api_key
         self.headers = {
             "hibp-api-key": api_key,
             "user-agent": "haveibeenpywned.py",
         }
-        self.rate_limit = rate_limit
 
+    @sleep_and_retry
+    @limits(calls=1, period=1.7)
     def _do_request(self, endpoint, params=None):
         """Internal method for building request url and performing HTTP request to the
         HIBP API
@@ -37,9 +38,15 @@ class Pywned:
         resp = requests.get(
             urljoin(API_BASE_URL, endpoint), headers=self.headers, params=params
         )
-        time.sleep(self.rate_limit)
         if resp.status_code == 404:
             return []
+        if resp.status_code == 429:
+            period_remaining = int(
+                re.match(r"\D*(\d+)\D*", resp.json()["message"]).group(1)
+            )
+            raise RateLimitException(
+                message=resp.json()["message"], period_remaining=period_remaining
+            )
         resp.raise_for_status()
         return resp.json()
 
