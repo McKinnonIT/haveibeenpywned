@@ -24,7 +24,7 @@ pywned = Pywned("your-hibp-api-key")
 resp = pywned.get_all_breaches_names_for_account("email@address.com")
 print(resp)
 
-['8tracks', 'AbuseWithUs', 'AntiPublic', 'BlankMediaGames', 'Dubsmash','MySpace'] 
+['8tracks', 'AbuseWithUs', 'AntiPublic', 'BlankMediaGames', 'Dubsmash', 'MySpace'] 
 ```
 
 ## Contributing
