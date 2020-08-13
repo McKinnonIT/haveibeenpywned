@@ -1,6 +1,10 @@
 # haveibeenpywned
 
+⚠ THIS WRAPPER IS INCOMPLETE
 A simple python wrapper for the www.haveibeenpwned.com API.
+
+## To do
+- Implement remaining API methods
 
 ## Installation
 
@@ -13,7 +17,6 @@ pip install haveibeenpywned
 ## Usage
 
 ```python
-
 from haveibeenpywned import Pywned
 
 pywned = Pywned("your-hibp-api-key")
@@ -30,9 +33,10 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - **Sam** - [scv-m](https://gist.github.com/scv-m)
 - **Eric** - [buzzlight](https://github.com/buzzlight)
 
-See also the list of contributors who participated in this project.
+See also the list of [contributors](https://github.com/scv-m/haveibeenpywned/graphs/contributors) who participated in this project.
 
 ## License
+[![](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/by.svg)](https://creativecommons.org/licenses/by/4.0/)
 [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
 >
 >In other words, you're welcome to use the public API to build other services, but you must identify Have I Been Pwned as the source of the data . Clear and visible attribution with a link to haveibeenpwned.com should be present anywhere data from the service is used including when searching breaches or pastes and when representing breach descriptions. It doesn't have to be overt, but the interface in which Have I Been Pwned data is represented should clearly attribute the source per the Creative Commons Attribution 4.0 International License.
