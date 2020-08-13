@@ -3,9 +3,9 @@ from setuptools import setup, find_packages
 setup(
     name="haveibeenpywned",
     version="0.1",
-    description="Python API Wrapper for haveibeenpwned.com API",
-    url="https://gitlab.com/mckinnon-sc-tech/haveibeenpywned/haveibeenpywned",
+    description="A simple python wrapper for the www.haveibeenpwned.com API.",
+    url="https://github.com/scv-m/haveibeenpywned",
     author="Sam Neal",
-    author_email="samn@mckinnoncs.vic.edu.au",
+    author_email="sam.w.neal@gmail.com",
     packages=find_packages(),
 )
