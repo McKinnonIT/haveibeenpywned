@@ -12,7 +12,7 @@ class Pywned:
         """HIBP API Setup Class, contains required headers, api key etc
 
         Args:
-            api_key (string): HIBP API Key
+            api_key (string): Your haveibeenpwned.com API key
         """
         self._api_key = api_key
         self.headers = {

@@ -4,7 +4,7 @@
 A simple python wrapper for the www.haveibeenpwned.com API.
 
 ## To do
-- Implement remaining API methods
+- ~~Implement remaining API methods~~
 - Publish to pip
 
 ## Installation
