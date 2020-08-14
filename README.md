@@ -27,6 +27,10 @@ print(resp)
 ['8tracks', 'AbuseWithUs', 'AntiPublic', 'BlankMediaGames', 'Dubsmash', 'MySpace'] 
 ```
 
+## Links
+- [Documentation](https://scv-m.github.io/haveibeenpywned/haveibeenpywned/)
+- [haveibeenpwned API Reference](https://haveibeenpwned.com/API)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
