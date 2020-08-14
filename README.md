@@ -28,7 +28,7 @@ print(resp)
 ```
 
 ## Links
-- [Documentation](https://scv-m.github.io/haveibeenpywned/haveibeenpywned/)
+- [Documentation](https://scv-m.github.io/haveibeenpywned/haveibeenpywned/haveibeenpywned.html)
 - [haveibeenpwned API Reference](https://haveibeenpwned.com/API)
 
 ## Contributing
