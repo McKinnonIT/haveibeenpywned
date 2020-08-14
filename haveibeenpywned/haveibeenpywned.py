@@ -9,7 +9,7 @@ API_BASE_URL = "https://haveibeenpwned.com/api/v3/"
 
 class Pywned:
     def __init__(self, api_key):
-        """HIBP API Setup Class, contains required headers, api key etc
+        """haveibeenpwned.com API setup class, contains required headers, api key etc
 
         Args:
             api_key (string): Your haveibeenpwned.com API key
@@ -19,7 +19,8 @@ class Pywned:
             "hibp-api-key": api_key,
             "user-agent": "haveibeenpywned.py",
         }
-        """Dict of additional headers required for api calls to the haveibeenpwned.com api"""
+        """Dict of additional headers required for api calls to the haveibeenpwned.com
+        api"""
 
     @sleep_and_retry
     @limits(calls=1, period=1.7)
