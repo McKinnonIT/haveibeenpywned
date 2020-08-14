@@ -81,6 +81,23 @@ class Pywned:
         resp = self.get_all_breaches_for_account(email)
         return [breach["Name"] for breach in resp]
 
+    def get_all_breached_sites(self, domain=None):
+        """Return the details of every breach
+
+        Args:
+            domain (string, optional): Filters the result set to only breaches against
+                the domain specified. It is possible that one site (and consequently
+                domain), is compromised on multiple occasions. Defaults to None.
+
+        Returns:
+            list: Details of every breach. Includes name, data classes, breach date etc.
+        """
+        if domain:
+            resp = self._do_request("breaches", params={"domain": domain})
+        else:
+            resp = self._do_request("breaches")
+        return resp
+
 
 if __name__ == "__main__":
     pass
