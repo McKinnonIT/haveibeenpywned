@@ -47,6 +47,7 @@ class Pywned:
             &#34;hibp-api-key&#34;: api_key,
             &#34;user-agent&#34;: &#34;haveibeenpywned.py&#34;,
         }
+        &#34;&#34;&#34;Dict of additional headers required for api calls to the haveibeenpwned.com api&#34;&#34;&#34;
 
     @sleep_and_retry
     @limits(calls=1, period=1.7)
@@ -66,6 +67,7 @@ class Pywned:
         resp = requests.get(
             urljoin(API_BASE_URL, endpoint), headers=self.headers, params=params
         )
+        print(urljoin(API_BASE_URL, endpoint))
         if resp.status_code == 404:
             return []
         if resp.status_code == 429:
@@ -88,13 +90,12 @@ class Pywned:
             breach data (Default is True)
 
         Returns:
-            list: Breaches for the email (account) has been involved in
+            list: Details of breaches for an email (account)
         &#34;&#34;&#34;
-        resp = self._do_request(
+        return self._do_request(
             urljoin(&#34;breachedaccount&#34;, email),
             params={&#34;truncateResponse&#34;: truncate_response},
         )
-        return resp
 
     def get_all_breaches_names_for_account(self, email):
         &#34;&#34;&#34;Returns a list of breach names a particular account (email) has been involved
@@ -118,13 +119,44 @@ class Pywned:
                 domain), is compromised on multiple occasions. Defaults to None.
 
         Returns:
-            list: Details of every breach. Includes name, data classes, breach date etc.
+            list: Details of all breached sites.
         &#34;&#34;&#34;
         if domain:
-            resp = self._do_request(&#34;breaches&#34;, params={&#34;domain&#34;: domain})
-        else:
-            resp = self._do_request(&#34;breaches&#34;)
-        return resp
+            return self._do_request(&#34;breaches&#34;, params={&#34;domain&#34;: domain})
+        return self._do_request(&#34;breaches&#34;)
+
+    def get_breached_site(self, name):
+        &#34;&#34;&#34;Returns a single breach by breach &#34;name&#34;. This is the stable value which may
+        or may not be the same as the reach &#34;title&#34; (which can change).
+
+        Args:
+            name (string): Breach site name to lookup
+
+        Returns:
+            dict: Details of a single breach.
+        &#34;&#34;&#34;
+        return self._do_request(urljoin(&#34;breach&#34;, name))
+
+    def get_data_classes(self):
+        &#34;&#34;&#34;Returns all &#34;data classes&#34;. A &#34;data class&#34; is an attribute of a record
+        compromised in a breach. For example, many breaches expose data classes such as
+        &#34;Email addresses&#34; and &#34;Passwords&#34;.
+
+        Returns:
+            list: Data class names
+        &#34;&#34;&#34;
+        return self._do_request(&#34;dataclasses&#34;)
+
+    def get_all_pastes_for_account(self, email):
+        &#34;&#34;&#34;Returns all pastes for an account (email)
+
+        Args:
+            email (string): Email (account) to search
+
+        Returns:
+            list: Details of each paste for an email (account)
+        &#34;&#34;&#34;
+        return self._do_request(urljoin(&#34;pasteaccount&#34;, email))
 
 
 if __name__ == &#34;__main__&#34;:
@@ -167,6 +199,7 @@ if __name__ == &#34;__main__&#34;:
             &#34;hibp-api-key&#34;: api_key,
             &#34;user-agent&#34;: &#34;haveibeenpywned.py&#34;,
         }
+        &#34;&#34;&#34;Dict of additional headers required for api calls to the haveibeenpwned.com api&#34;&#34;&#34;
 
     @sleep_and_retry
     @limits(calls=1, period=1.7)
@@ -186,6 +219,7 @@ if __name__ == &#34;__main__&#34;:
         resp = requests.get(
             urljoin(API_BASE_URL, endpoint), headers=self.headers, params=params
         )
+        print(urljoin(API_BASE_URL, endpoint))
         if resp.status_code == 404:
             return []
         if resp.status_code == 429:
@@ -208,13 +242,12 @@ if __name__ == &#34;__main__&#34;:
             breach data (Default is True)
 
         Returns:
-            list: Breaches for the email (account) has been involved in
+            list: Details of breaches for an email (account)
         &#34;&#34;&#34;
-        resp = self._do_request(
+        return self._do_request(
             urljoin(&#34;breachedaccount&#34;, email),
             params={&#34;truncateResponse&#34;: truncate_response},
         )
-        return resp
 
     def get_all_breaches_names_for_account(self, email):
         &#34;&#34;&#34;Returns a list of breach names a particular account (email) has been involved
@@ -238,14 +271,52 @@ if __name__ == &#34;__main__&#34;:
                 domain), is compromised on multiple occasions. Defaults to None.
 
         Returns:
-            list: Details of every breach. Includes name, data classes, breach date etc.
+            list: Details of all breached sites.
         &#34;&#34;&#34;
         if domain:
-            resp = self._do_request(&#34;breaches&#34;, params={&#34;domain&#34;: domain})
-        else:
-            resp = self._do_request(&#34;breaches&#34;)
-        return resp</code></pre>
+            return self._do_request(&#34;breaches&#34;, params={&#34;domain&#34;: domain})
+        return self._do_request(&#34;breaches&#34;)
+
+    def get_breached_site(self, name):
+        &#34;&#34;&#34;Returns a single breach by breach &#34;name&#34;. This is the stable value which may
+        or may not be the same as the reach &#34;title&#34; (which can change).
+
+        Args:
+            name (string): Breach site name to lookup
+
+        Returns:
+            dict: Details of a single breach.
+        &#34;&#34;&#34;
+        return self._do_request(urljoin(&#34;breach&#34;, name))
+
+    def get_data_classes(self):
+        &#34;&#34;&#34;Returns all &#34;data classes&#34;. A &#34;data class&#34; is an attribute of a record
+        compromised in a breach. For example, many breaches expose data classes such as
+        &#34;Email addresses&#34; and &#34;Passwords&#34;.
+
+        Returns:
+            list: Data class names
+        &#34;&#34;&#34;
+        return self._do_request(&#34;dataclasses&#34;)
+
+    def get_all_pastes_for_account(self, email):
+        &#34;&#34;&#34;Returns all pastes for an account (email)
+
+        Args:
+            email (string): Email (account) to search
+
+        Returns:
+            list: Details of each paste for an email (account)
+        &#34;&#34;&#34;
+        return self._do_request(urljoin(&#34;pasteaccount&#34;, email))</code></pre>
 </details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="haveibeenpywned.haveibeenpywned.Pywned.headers"><code class="name">var <span class="ident">headers</span></code></dt>
+<dd>
+<div class="desc"><p>Dict of additional headers required for api calls to the haveibeenpwned.com api</p></div>
+</dd>
+</dl>
 <h3>Methods</h3>
 <dl>
 <dt id="haveibeenpywned.haveibeenpywned.Pywned.get_all_breached_sites"><code class="name flex">
@@ -263,7 +334,7 @@ domain), is compromised on multiple occasions. Defaults to None.</dd>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>list</code></dt>
-<dd>Details of every breach. Includes name, data classes, breach date etc.</dd>
+<dd>Details of all breached sites.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -278,13 +349,11 @@ domain), is compromised on multiple occasions. Defaults to None.</dd>
             domain), is compromised on multiple occasions. Defaults to None.
 
     Returns:
-        list: Details of every breach. Includes name, data classes, breach date etc.
+        list: Details of all breached sites.
     &#34;&#34;&#34;
     if domain:
-        resp = self._do_request(&#34;breaches&#34;, params={&#34;domain&#34;: domain})
-    else:
-        resp = self._do_request(&#34;breaches&#34;)
-    return resp</code></pre>
+        return self._do_request(&#34;breaches&#34;, params={&#34;domain&#34;: domain})
+    return self._do_request(&#34;breaches&#34;)</code></pre>
 </details>
 </dd>
 <dt id="haveibeenpywned.haveibeenpywned.Pywned.get_all_breaches_for_account"><code class="name flex">
@@ -304,7 +373,7 @@ in</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>list</code></dt>
-<dd>Breaches for the email (account) has been involved in</dd>
+<dd>Details of breaches for an email (account)</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -320,13 +389,12 @@ in</p>
         breach data (Default is True)
 
     Returns:
-        list: Breaches for the email (account) has been involved in
+        list: Details of breaches for an email (account)
     &#34;&#34;&#34;
-    resp = self._do_request(
+    return self._do_request(
         urljoin(&#34;breachedaccount&#34;, email),
         params={&#34;truncateResponse&#34;: truncate_response},
-    )
-    return resp</code></pre>
+    )</code></pre>
 </details>
 </dd>
 <dt id="haveibeenpywned.haveibeenpywned.Pywned.get_all_breaches_names_for_account"><code class="name flex">
@@ -363,6 +431,97 @@ in</p>
     return [breach[&#34;Name&#34;] for breach in resp]</code></pre>
 </details>
 </dd>
+<dt id="haveibeenpywned.haveibeenpywned.Pywned.get_all_pastes_for_account"><code class="name flex">
+<span>def <span class="ident">get_all_pastes_for_account</span></span>(<span>self, email)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns all pastes for an account (email)</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>email</code></strong> :&ensp;<code>string</code></dt>
+<dd>Email (account) to search</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>Details of each paste for an email (account)</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_all_pastes_for_account(self, email):
+    &#34;&#34;&#34;Returns all pastes for an account (email)
+
+    Args:
+        email (string): Email (account) to search
+
+    Returns:
+        list: Details of each paste for an email (account)
+    &#34;&#34;&#34;
+    return self._do_request(urljoin(&#34;pasteaccount&#34;, email))</code></pre>
+</details>
+</dd>
+<dt id="haveibeenpywned.haveibeenpywned.Pywned.get_breached_site"><code class="name flex">
+<span>def <span class="ident">get_breached_site</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns a single breach by breach "name". This is the stable value which may
+or may not be the same as the reach "title" (which can change).</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>string</code></dt>
+<dd>Breach site name to lookup</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>Details of a single breach.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_breached_site(self, name):
+    &#34;&#34;&#34;Returns a single breach by breach &#34;name&#34;. This is the stable value which may
+    or may not be the same as the reach &#34;title&#34; (which can change).
+
+    Args:
+        name (string): Breach site name to lookup
+
+    Returns:
+        dict: Details of a single breach.
+    &#34;&#34;&#34;
+    return self._do_request(urljoin(&#34;breach&#34;, name))</code></pre>
+</details>
+</dd>
+<dt id="haveibeenpywned.haveibeenpywned.Pywned.get_data_classes"><code class="name flex">
+<span>def <span class="ident">get_data_classes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns all "data classes". A "data class" is an attribute of a record
+compromised in a breach. For example, many breaches expose data classes such as
+"Email addresses" and "Passwords".</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>list</code></dt>
+<dd>Data class names</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_data_classes(self):
+    &#34;&#34;&#34;Returns all &#34;data classes&#34;. A &#34;data class&#34; is an attribute of a record
+    compromised in a breach. For example, many breaches expose data classes such as
+    &#34;Email addresses&#34; and &#34;Passwords&#34;.
+
+    Returns:
+        list: Data class names
+    &#34;&#34;&#34;
+    return self._do_request(&#34;dataclasses&#34;)</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -387,6 +546,10 @@ in</p>
 <li><code><a title="haveibeenpywned.haveibeenpywned.Pywned.get_all_breached_sites" href="#haveibeenpywned.haveibeenpywned.Pywned.get_all_breached_sites">get_all_breached_sites</a></code></li>
 <li><code><a title="haveibeenpywned.haveibeenpywned.Pywned.get_all_breaches_for_account" href="#haveibeenpywned.haveibeenpywned.Pywned.get_all_breaches_for_account">get_all_breaches_for_account</a></code></li>
 <li><code><a title="haveibeenpywned.haveibeenpywned.Pywned.get_all_breaches_names_for_account" href="#haveibeenpywned.haveibeenpywned.Pywned.get_all_breaches_names_for_account">get_all_breaches_names_for_account</a></code></li>
+<li><code><a title="haveibeenpywned.haveibeenpywned.Pywned.get_all_pastes_for_account" href="#haveibeenpywned.haveibeenpywned.Pywned.get_all_pastes_for_account">get_all_pastes_for_account</a></code></li>
+<li><code><a title="haveibeenpywned.haveibeenpywned.Pywned.get_breached_site" href="#haveibeenpywned.haveibeenpywned.Pywned.get_breached_site">get_breached_site</a></code></li>
+<li><code><a title="haveibeenpywned.haveibeenpywned.Pywned.get_data_classes" href="#haveibeenpywned.haveibeenpywned.Pywned.get_data_classes">get_data_classes</a></code></li>
+<li><code><a title="haveibeenpywned.haveibeenpywned.Pywned.headers" href="#haveibeenpywned.haveibeenpywned.Pywned.headers">headers</a></code></li>
 </ul>
 </li>
 </ul>
