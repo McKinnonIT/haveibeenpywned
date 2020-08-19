@@ -37,7 +37,7 @@ API_BASE_URL = &#34;https://haveibeenpwned.com/api/v3/&#34;
 
 class Pywned:
     def __init__(self, api_key):
-        &#34;&#34;&#34;HIBP API Setup Class, contains required headers, api key etc
+        &#34;&#34;&#34;haveibeenpwned.com API setup class, contains required headers, api key etc
 
         Args:
             api_key (string): Your haveibeenpwned.com API key
@@ -47,13 +47,14 @@ class Pywned:
             &#34;hibp-api-key&#34;: api_key,
             &#34;user-agent&#34;: &#34;haveibeenpywned.py&#34;,
         }
-        &#34;&#34;&#34;Dict of additional headers required for api calls to the haveibeenpwned.com api&#34;&#34;&#34;
+        &#34;&#34;&#34;Dict of additional headers required for api calls to the haveibeenpwned.com
+        api&#34;&#34;&#34;
 
     @sleep_and_retry
     @limits(calls=1, period=1.7)
     def _do_request(self, endpoint, params=None):
         &#34;&#34;&#34;Internal method for building request url and performing HTTP request to the
-        HIBP API
+        haveibeenpwned.com API
 
         Args:
             endpoint (string): API endpoint string (eg. &#34;breachedaccount&#34; or &#34;breach&#34; )
@@ -177,7 +178,7 @@ if __name__ == &#34;__main__&#34;:
 <span>(</span><span>api_key)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>HIBP API Setup Class, contains required headers, api key etc</p>
+<div class="desc"><p>haveibeenpwned.com API setup class, contains required headers, api key etc</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>api_key</code></strong> :&ensp;<code>string</code></dt>
@@ -189,7 +190,7 @@ if __name__ == &#34;__main__&#34;:
 </summary>
 <pre><code class="python">class Pywned:
     def __init__(self, api_key):
-        &#34;&#34;&#34;HIBP API Setup Class, contains required headers, api key etc
+        &#34;&#34;&#34;haveibeenpwned.com API setup class, contains required headers, api key etc
 
         Args:
             api_key (string): Your haveibeenpwned.com API key
@@ -199,13 +200,14 @@ if __name__ == &#34;__main__&#34;:
             &#34;hibp-api-key&#34;: api_key,
             &#34;user-agent&#34;: &#34;haveibeenpywned.py&#34;,
         }
-        &#34;&#34;&#34;Dict of additional headers required for api calls to the haveibeenpwned.com api&#34;&#34;&#34;
+        &#34;&#34;&#34;Dict of additional headers required for api calls to the haveibeenpwned.com
+        api&#34;&#34;&#34;
 
     @sleep_and_retry
     @limits(calls=1, period=1.7)
     def _do_request(self, endpoint, params=None):
         &#34;&#34;&#34;Internal method for building request url and performing HTTP request to the
-        HIBP API
+        haveibeenpwned.com API
 
         Args:
             endpoint (string): API endpoint string (eg. &#34;breachedaccount&#34; or &#34;breach&#34; )
@@ -314,7 +316,8 @@ if __name__ == &#34;__main__&#34;:
 <dl>
 <dt id="haveibeenpywned.haveibeenpywned.Pywned.headers"><code class="name">var <span class="ident">headers</span></code></dt>
 <dd>
-<div class="desc"><p>Dict of additional headers required for api calls to the haveibeenpwned.com api</p></div>
+<div class="desc"><p>Dict of additional headers required for api calls to the haveibeenpwned.com
+api</p></div>
 </dd>
 </dl>
 <h3>Methods</h3>

@@ -6,7 +6,7 @@ on:
 
 jobs:
   build_docs:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
         python-version: [3.8.5]
@@ -32,7 +32,7 @@ jobs:
         with:
           author_name: Sam
           author_email: sam.w.neal@gmail.com
-          message: "Auto build docs for $GITHUB_SHA"
+          message: "Auto build docs for ${{ github.sha }}"
           add: "docs/"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

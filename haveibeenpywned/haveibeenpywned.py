@@ -26,7 +26,7 @@ class Pywned:
     @limits(calls=1, period=1.7)
     def _do_request(self, endpoint, params=None):
         """Internal method for building request url and performing HTTP request to the
-        HIBP API
+        haveibeenpwned.com API
 
         Args:
             endpoint (string): API endpoint string (eg. "breachedaccount" or "breach" )
