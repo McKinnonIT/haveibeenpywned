@@ -21,5 +21,5 @@ setup(
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.8",
-    install_requires=requirements,
+    install_requires=["ratelimit", "requests",],
 )
