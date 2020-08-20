@@ -1,4 +1,4 @@
-![docs](https://github.com/scv-m/haveibeenpywned/workflows/Build%20Docs/badge.svg) [![PyPI version](https://badge.fury.io/py/haveibeenpywned.svg)](https://badge.fury.io/py/haveibeenpywned)  
+![docs](https://github.com/scv-m/haveibeenpywned/workflows/Build%20Docs/badge.svg) [![PyPI version](https://badge.fury.io/py/haveibeenpywned.svg)](https://badge.fury.io/py/haveibeenpywned) ![build](https://github.com/scv-m/haveibeenpywned/workflows/Publish%20Python%20distributions%20to%20PyPI%20and%20TestPyPI/badge.svg)
 # haveibeenpywned
 A simple Python wrapper for the [Have I Been Pwned](https://haveibeenpwned.com) API.
 
