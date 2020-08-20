@@ -1,13 +1,10 @@
-![Build Docs](https://github.com/scv-m/haveibeenpywned/workflows/Build%20Docs/badge.svg)
+![docs](https://github.com/scv-m/haveibeenpywned/workflows/Build%20Docs/badge.svg) [![PyPI version](https://badge.fury.io/py/haveibeenpywned.svg)](https://badge.fury.io/py/haveibeenpywned)  
 # haveibeenpywned
 A simple Python wrapper for the [Have I Been Pwned](https://haveibeenpwned.com) API.
 
-## To do
-- Publish to pip
-
 ## Installation
 
-Coming soon™ ~~Use the package manager [pip](https://www.google.com) to install haveibeenpywned.~~
+Use the package manager [pip](https://www.google.com) to install haveibeenpywned.
 
 ```bash
 pip install haveibeenpywned
