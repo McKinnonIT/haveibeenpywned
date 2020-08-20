@@ -1,6 +1,6 @@
+![Build Docs](https://github.com/scv-m/haveibeenpywned/workflows/Build%20Docs/badge.svg)
 # haveibeenpywned
-
-A simple python wrapper for the www.haveibeenpwned.com API.
+A simple Python wrapper for the [Have I Been Pwned](https://haveibeenpwned.com) API.
 
 ## To do
 - Publish to pip
