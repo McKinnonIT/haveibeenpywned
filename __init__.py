@@ -1,1 +1,0 @@
-from .haveibeenpywned.haveibeenpywned import Pywned
