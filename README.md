@@ -1,4 +1,4 @@
-[![PyPI version](https://badge.fury.io/py/haveibeenpywned.svg)](https://badge.fury.io/py/haveibeenpywned) ![pypi build](https://github.com/scv-m/haveibeenpywned/workflows/pypi%20build/badge.svg) ![docs](https://github.com/scv-m/haveibeenpywned/workflows/docs/badge.svg) 
+![PyPI](https://img.shields.io/pypi/v/haveibeenpywned?color=light-green) ![pypi build](https://github.com/scv-m/haveibeenpywned/workflows/pypi%20build/badge.svg) ![docs](https://github.com/scv-m/haveibeenpywned/workflows/docs/badge.svg) 
 # haveibeenpywned
 A simple Python wrapper for the [Have I Been Pwned](https://haveibeenpwned.com) API.
 
