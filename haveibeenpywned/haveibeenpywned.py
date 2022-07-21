@@ -5,6 +5,7 @@ from ratelimit.exception import RateLimitException
 from posixpath import join as urljoin
 
 API_BASE_URL = "https://haveibeenpwned.com/api/v3/"
+PASSWORDS_BASE_URL = "https://api.pwnedpasswords.com"
 
 
 class Pywned:
@@ -24,7 +25,7 @@ class Pywned:
 
     @sleep_and_retry
     @limits(calls=1, period=1.7)
-    def _do_request(self, endpoint, params=None):
+    def _do_request(self, endpoint, params=None, base=API_BASE_URL, json=True):
         """Internal method for building request url and performing HTTP request to the
         haveibeenpwned.com API
 
@@ -38,9 +39,9 @@ class Pywned:
         """
 
         resp = requests.get(
-            urljoin(API_BASE_URL, endpoint), headers=self.headers, params=params
+            urljoin(base, endpoint), headers=self.headers, params=params
         )
-        print(urljoin(API_BASE_URL, endpoint))
+        print(urljoin(base, endpoint))
         if resp.status_code == 404:
             return []
         if resp.status_code == 429:
@@ -51,7 +52,10 @@ class Pywned:
                 message=resp.json()["message"], period_remaining=period_remaining
             )
         resp.raise_for_status()
-        return resp.json()
+        if json:
+            return resp.json()
+        else:
+            return resp.text
 
     def get_all_breaches_for_account(self, email, truncate_response=True):
         """Returns a list of all breaches a particular account (email) has been involved
@@ -130,6 +134,19 @@ class Pywned:
             list: Details of each paste for an email (account)
         """
         return self._do_request(urljoin("pasteaccount", email))
+
+    def get_hashes(self, hash):
+        """Returns all password hash suffixes that match the hash prefix
+
+        Args:
+            hash (string): First 5 characters of a SHA-1 password hash (will truncate to 5 chars)
+
+        Returns:
+            list: suffix of hashes that match the supplied hash along with the number of times it exists
+            in the dataset in the format suffix:number (i.e. 00D4F6E8FA6EECAD2A3AA415EEC418D38EC:2)
+        """
+        resp = self._do_request(urljoin("range", hash[:5]), base=PASSWORDS_BASE_URL, json=False)
+        return resp.split("\r\n")
 
 
 if __name__ == "__main__":
